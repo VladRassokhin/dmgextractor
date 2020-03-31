@@ -18,9 +18,9 @@
 package org.catacombae.dmg.udif;
 
 import java.io.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
-import net.iharder.base64.Base64;
+import net.iharder.Base64;
 import org.catacombae.dmgextractor.Util;
 import org.catacombae.dmgextractor.io.*;
 import org.catacombae.plist.PlistNode;
@@ -98,7 +98,7 @@ public class Plist extends XmlPlist {
 //                 fos.close();
 //             } catch(Exception e) { e.printStackTrace(); }
 
-            InputStream base64DataInputStream = new Base64.InputStream(new ReaderInputStream(base64Data, Charset.forName("US-ASCII")));
+            InputStream base64DataInputStream = new Base64.InputStream(new ReaderInputStream(base64Data, StandardCharsets.US_ASCII));
 
             //System.err.println("Creating PlistPartition.");
             //System.out.println("Block list for partition " + i++ + ":");
