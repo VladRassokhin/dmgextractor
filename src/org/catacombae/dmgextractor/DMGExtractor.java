@@ -384,6 +384,9 @@ public class DMGExtractor {
                 else if(blockType == UDIFBlock.BT_BZIP2) {
                     DMGBlockHandlers.processBlock(currentBlock, dmgRaf, isoRaf, testOnly, ui);
                 }
+                else if(blockType == UDIFBlock.BT_LZFSE) {
+                    DMGBlockHandlers.processBlock(currentBlock, dmgRaf, isoRaf, testOnly, ui);
+                }
                 else if(blockType == UDIFBlock.BT_COPY) {
                     DMGBlockHandlers.processBlock(currentBlock, dmgRaf, isoRaf, testOnly, ui);
                 }

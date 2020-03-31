@@ -81,6 +81,8 @@ public abstract class UDIFBlockInputStream extends InputStream {
                 return new ZlibBlockInputStream(raf, block, 0);
             case UDIFBlock.BT_BZIP2:
                 return new Bzip2BlockInputStream(raf, block, 0);
+            case UDIFBlock.BT_LZFSE:
+                return new LzfseBlockInputStream(raf, block, 0);
             case UDIFBlock.BT_COPY:
                 return new CopyBlockInputStream(raf, block, 0);
             case UDIFBlock.BT_ZERO:
