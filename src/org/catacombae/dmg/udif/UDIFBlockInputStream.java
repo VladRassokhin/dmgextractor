@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
-import org.apache.tools.bzip2.CBZip2InputStream;
+import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.catacombae.dmgextractor.Util;
 import org.catacombae.dmgextractor.DmgException;
 import org.catacombae.dmgextractor.io.RandomAccessInputStream;
@@ -384,7 +384,7 @@ public abstract class UDIFBlockInputStream extends InputStream {
 
         private final byte[] BZIP2_SIGNATURE = { 0x42, 0x5A }; // 'BZ'
         private InputStream bzip2DataStream;
-        private CBZip2InputStream decompressingStream;
+        private BZip2CompressorInputStream decompressingStream;
         private long outPos = 0;
 
         public Bzip2BlockInputStream(ReadableRandomAccessStream raf,
@@ -431,7 +431,7 @@ public abstract class UDIFBlockInputStream extends InputStream {
 
             /* Buffering needed because of implementation issues in
              * CBZip2InputStream. */
-            decompressingStream = new CBZip2InputStream(
+            decompressingStream = new BZip2CompressorInputStream(
                     new BufferedInputStream(bzip2DataStream));
         }
 
