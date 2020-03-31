@@ -23,10 +23,6 @@
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
-    <repository>
-      <id>NetBeans Repository</id>
-      <url>http://bits.netbeans.org/maven2/</url>
-    </repository>
   </repositories>
 
   <dependencies>
@@ -44,11 +40,6 @@
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
       <version>1.10.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.netbeans.external</groupId>
-      <artifactId>swing-layout-1.0.4</artifactId>
-      <version>RELEASE731</version>
     </dependency>
 
     <dependency>

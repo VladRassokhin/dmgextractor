@@ -18,9 +18,6 @@ package org.catacombae.dmgextractor.utils;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 public class DMGInfo {
 
@@ -137,29 +134,6 @@ public class DMGInfo {
             result.append(s);
         }
         return result.toString();
-    }
-}
-
-class DMGInfoFrame extends JFrame {
-
-    private JTabbedPane mainPane;
-
-    public DMGInfoFrame() {
-        super("DMGInfo");
-
-        mainPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
-
-        StatisticsPanel statisticsPanel;
-        statisticsPanel = new StatisticsPanel();
-    //mainPane.addTab(statisticsPanel, "Statistics");
-    }
-}
-
-class StatisticsPanel extends JPanel {
-
-    JPanel blocktypeCountPanel;
-
-    public StatisticsPanel(/*DMGFile dmgFile*/) {
     }
 }
 

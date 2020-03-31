@@ -27,7 +27,6 @@ import java.io.RandomAccessFile;
 import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Collections;
-import javax.swing.JOptionPane;
 import org.catacombae.dmg.encrypted.ReadableCEncryptedEncodingStream;
 import org.catacombae.dmg.sparsebundle.ReadableSparseBundleStream;
 import org.catacombae.dmg.sparseimage.ReadableSparseImageStream;
@@ -42,7 +41,6 @@ import org.catacombae.dmg.udif.PlistPartition;
 import org.catacombae.dmg.udif.UDIFBlock;
 import org.catacombae.dmg.udif.UDIFDetector;
 import org.catacombae.io.RuntimeIOException;
-import org.catacombae.io.SynchronizedReadableRandomAccessStream;
 import org.xml.sax.XMLReader;
 
 public class DMGExtractor {
@@ -75,7 +73,6 @@ public class DMGExtractor {
         public boolean useSaxParser = false;
         public boolean verbose = false;
         public boolean debug = false;
-        public boolean graphical = false;
         public String startupCommand = "java DMGExtractor";
         public File dmgFile = null;
         public File isoFile = null;
@@ -90,25 +87,11 @@ public class DMGExtractor {
                 ses.verbose = true;
 
             final UserInterface ui;
-            if(ses.graphical)
-                ui = new SwingUI(ses.verbose);
-            else
-                ui = new TextModeUI(ses.verbose);
+
+            ui = new TextModeUI(ses.verbose);
 
             ui.displayMessage(COPYRIGHT_MESSAGE);
             if(ses.parseArgsErrorMessage == null) {
-                if(ses.graphical) {
-                    if(ses.dmgFile == null) {
-                        ses.dmgFile = ui.getInputFileFromUser();
-                    }
-                    if(ses.dmgFile != null && ses.isoFile == null) {
-                        if(ui.getOutputConfirmationFromUser()) {
-                            ses.isoFile = ui.getOutputFileFromUser(ses.dmgFile);
-                            if(ses.isoFile == null)
-                                System.exit(0);
-                        }
-                    }
-                }
 
                 if(ses.dmgFile != null) {
                     String dmgFilename = null;
@@ -127,21 +110,13 @@ public class DMGExtractor {
                         System.exit(0);
                     }
                 }
-                else if(!ses.graphical)
-                    printUsageInstructions(ui, ses.startupCommand,
-                            "Error: No input file specified.");
+                else printUsageInstructions(ui, ses.startupCommand,
+                        "Error: No input file specified.");
             }
             else
                 printUsageInstructions(ui, ses.startupCommand, ses.parseArgsErrorMessage);
             
         } catch(Exception e) {
-            if(ses != null && ses.graphical) {
-                String stackTrace = e.toString() + "\n";
-                for(StackTraceElement ste : e.getStackTrace())
-                    stackTrace += "    " + ste.toString() + "\n";
-                JOptionPane.showMessageDialog(null, "The program encountered an uncaught exception:\n" + stackTrace +
-                        "\nCan not recover. Exiting...", "Error", JOptionPane.ERROR_MESSAGE);
-            }
             throw e;
         }
     }
@@ -617,8 +592,6 @@ public class DMGExtractor {
                 //System.err.println("Parsing argument: \"" + cur + "\"");
                 if(!cur.startsWith("-"))
                     break;
-                else if(cur.equals("-gui"))
-                    ses.graphical = true;
                 else if(cur.equals("-saxparser"))
                     ses.useSaxParser = true;
                 else if(cur.equals("-v"))
@@ -666,7 +639,7 @@ public class DMGExtractor {
                             "Input file \"" + ses.dmgFile + "\" not found!";
                 }
             }
-            else if(!ses.graphical) {
+            else {
                 ses.parseArgsErrorMessage = "Error: No input file specified.";
             }
         } catch(Exception e) {
@@ -700,7 +673,6 @@ public class DMGExtractor {
             "    -saxparser  use the standard SAX parser for XML processing instead of",
             "                the APX parser (will connect to Apple's website for DTD",
             "                validation)",
-            "    -gui        starts the program in graphical mode",
             "    -debug      performs unspecified debug operations (only intended for",
             "                development use)",
             ""
