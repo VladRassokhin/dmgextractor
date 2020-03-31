@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import javax.swing.JFrame;
-import net.iharder.dnd.FileDrop;
 import org.catacombae.dmg.udif.Koly;
 import org.catacombae.dmgextractor.utils.gui.DMGInfoPanel;
 
@@ -32,20 +31,6 @@ public class DMGInfoWindow extends JFrame {
     public DMGInfoWindow() {
         infoPanel = new DMGInfoPanel();
         add(infoPanel, BorderLayout.CENTER);
-
-        // Register handler for file drag&drop events
-        new FileDrop(this, new FileDrop.Listener() {
-
-            public void filesDropped(java.io.File[] files) {
-                if(files.length > 0) {
-                    try {
-                        loadFile(files[0]);
-                    } catch(IOException ioe) {
-                        ioe.printStackTrace();
-                    }
-                }
-            }
-        });
 
         pack();
         setLocationRelativeTo(null);
